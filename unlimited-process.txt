@@ -1,0 +1,61 @@
+startup / container-type setup with auto-bitcoin-bootstrap.sh
+scheduled root maintain-system.sh
+scheduled user maintain-bitcoin.sh
+
+
+
+
+
+# Local
+############################
+install gcloud
+install gcloud alpha  # for project create
+authenticate
+uuid=$(uuidgen) && uuid=${uuid,,}
+projectid="bitcoin-${uuid}"
+gcloud alpha project create $projectid
+gcloud compute instance create n1-standard-1 
+
+POST https://www.googleapis.com/compute/v1/projects/bu-test-160812/zones/us-west1-a/instances { "name": "bitcoin-worker", "zone": "us-west1-a", "machineType": "custom-1-2048", "metadata": { "items": [] }, "tags": { "items": [] }, "disks": [ { "type": "PERSISTENT", "boot": true, "mode": "READ_WRITE", "autoDelete": true, "deviceName": "bitcoin-worker", "initializeParams": { "sourceImage": "projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20170307", "diskType": "pd-standard", "diskSizeGb": "10" } }, { "type": "PERSISTENT", "mode": "READ_WRITE", "source": "projects/bu-test-160812/zones/us-west1-a/disks/blockchain2", "autoDelete": false, "boot": false, "interface": "SCSI", "deviceName": "blockchain2" } ], "canIpForward": false, "networkInterfaces": [ { "network": "projects/bu-test-160812/global/networks/default", "subnetwork": "projects/bu-test-160812/regions/us-west1/subnetworks/default", "accessConfigs": [ { "name": "External NAT", "type": "ONE_TO_ONE_NAT" } ] } ], "description": "", "scheduling": { "preemptible": true, "onHostMaintenance": "TERMINATE", "automaticRestart": false }, "serviceAccounts": [ { "email": "bitcoin-service-account@bu-test-160812.iam.gserviceaccount.com", "scopes": [ "https://www.googleapis.com/auth/cloud-platform" ] } ] }
+
+
+
+
+############################
+
+
+
+# Container Setup
+############################
+
+############################
+
+
+# blockchain storage
+############################
+
+
+
+gcloud compute instances set-disk-auto-delete example-instance --no-auto-delete --disk "blockchain"
+############################
+
+test for "already exists" in output
+# exists: do nothing
+# else: create:
+############################
+gcloud compute instances attach-disk bitcoin1 --disk blockchain
+sudo mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/disk/by-id/google-blockchain
+sudo mkdir -p /mnt/disks/blockchain
+sudo mount -o discard,defaults /dev/disk/by-id/google-blockchain /mnt/disks/blockchain
+sudo chmod a+w /mnt/disks/blockchain
+############################
+
+# bitcoind
+# ok / syncing / re-indexing: do nothing
+# corrupt: reindex + notify
+# off: basic start
+############################
+bitcoind .... -prune=
+############################
+
+
