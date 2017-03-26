@@ -23,4 +23,3 @@ if ! id ${BTC_USER} > /dev/null 2>&1; then
     adduser --disabled-password --gecos "" ${BTC_USER}
 fi
 echo "*/${REFRESH_MINUTES} * * * * ${BTC_USER} \"${AUTOBITCOIN_DIR}/maintain-bitcoin.sh\"" > /etc/cron.d/maintain-bitcoin
-

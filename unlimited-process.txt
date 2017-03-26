@@ -6,7 +6,7 @@ scheduled user maintain-bitcoin.sh
 
 
 
-# Local
+# Full automation of the whole project, account, etc. setup.
 ############################
 install gcloud
 install gcloud alpha  # for project create
@@ -22,34 +22,6 @@ POST https://www.googleapis.com/compute/v1/projects/bu-test-160812/zones/us-west
 
 
 ############################
-
-
-
-# Container Setup
-############################
-
-############################
-
-
-# blockchain storage
-############################
-
-
-
-gcloud compute instances set-disk-auto-delete example-instance --no-auto-delete --disk "blockchain"
-############################
-
-test for "already exists" in output
-# exists: do nothing
-# else: create:
-############################
-gcloud compute instances attach-disk bitcoin1 --disk blockchain
-sudo mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/disk/by-id/google-blockchain
-sudo mkdir -p /mnt/disks/blockchain
-sudo mount -o discard,defaults /dev/disk/by-id/google-blockchain /mnt/disks/blockchain
-sudo chmod a+w /mnt/disks/blockchain
-############################
-
 # bitcoind
 # ok / syncing / re-indexing: do nothing
 # corrupt: reindex + notify
@@ -59,3 +31,10 @@ bitcoind .... -prune=
 ############################
 
 
+
+gcloud compute --project "bu-test-160812" ssh --zone "asia-northeast1-a" "bitcoin-worker"
+
+
+
+gcloud compute instances add-metadata bitcoin-worker --metadata-from-file startup-script=startup-bootstrap.sh --zone asia-northeast1-a
+gcloud compute instances add-metadata bitcoin-worker --metadata-from-file shutdown-script=shutdown.sh --zone asia-northeast1-a
