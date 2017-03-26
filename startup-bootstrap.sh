@@ -4,7 +4,7 @@ set -e
 
 # get or update the repo
 AUTOBITCOIN_DIR=/auto-bitcoin
-apt-get update --assume-yes && apt-get upgrade --assume-yes && apt-get install git --assume-yes
+apt-get update --assume-yes && apt-get dist-upgrade --assume-yes && apt-get install git --assume-yes
 if pushd "${AUTOBITCOIN_DIR}"; then
     git pull && popd
 else
