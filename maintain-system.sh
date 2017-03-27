@@ -9,6 +9,19 @@ DEVICE_DIR="/dev/disk/by-id/google-${DISK_NAME}"
 MOUNT_DIR="/mnt/disks/blockchain"
 
 
+# get or update the repo
+AUTOBITCOIN_DIR=/auto-bitcoin
+pushd "${AUTOBITCOIN_DIR}" && git pull && popd
+
+
+# bitcoin non-root user
+BTC_USER=btc_user
+REFRESH_MINUTES=15
+if ! id ${BTC_USER} > /dev/null 2>&1; then
+    adduser --disabled-password --gecos "" ${BTC_USER}
+fi
+
+
 # blockchain permanent storage
 echo "Confirm or create blockchain disk:"
 if gcloud compute disks create ${DISK_NAME} --size "200" --type "pd-standard" --zone ${ZONE}; then
