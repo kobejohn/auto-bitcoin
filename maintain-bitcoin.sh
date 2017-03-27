@@ -1,14 +1,18 @@
+#! /bin/bash
+set -e
+
+
+MOUNT_DIR="/mnt/disks/blockchain"
+
+
 # bitcoin client
 bitcoind \
     -daemon \
-    -datadir=/mnt/disks/blockchain \
-    -dbcache=800 \
+    -datadir="${MOUNT_DIR}" \
+    -dbcache=1000 \
     -prune=180000 \
     -disablewallet
 
 
 # blockchain health
-
-
-
-
+# todo: ...

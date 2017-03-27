@@ -2,21 +2,22 @@
 set -e
 
 
+AUTOBITCOIN_DIR=/auto-bitcoin
+BTC_USER=btc_user
+
 ZONE="asia-northeast1-a"
-INSTANCE=$(gcloud compute instance-groups managed list-instances bitcoin-group --zone asia-northeast1-a | tail -n 1 | awk '{print $1;}')
+INSTANCE=$(gcloud compute instance-groups managed list-instances bitcoin-group --zone ${ZONE} | tail -n 1 | awk '{print $1;}')
 DISK_NAME="blockchain"
+DISK_SIZE_GB="200"
 DEVICE_DIR="/dev/disk/by-id/google-${DISK_NAME}"
 MOUNT_DIR="/mnt/disks/blockchain"
 
 
-# get or update the repo
-AUTOBITCOIN_DIR=/auto-bitcoin
+echo "Update to latest auto-bitcoin:"
 pushd "${AUTOBITCOIN_DIR}" && git pull && popd
 
 
-# bitcoin non-root user
-BTC_USER=btc_user
-REFRESH_MINUTES=15
+echo "Confirm or create bitcoin user:"
 if ! id ${BTC_USER} > /dev/null 2>&1; then
     adduser --disabled-password --gecos "" ${BTC_USER}
 fi
@@ -24,7 +25,7 @@ fi
 
 # blockchain permanent storage
 echo "Confirm or create blockchain disk:"
-if gcloud compute disks create ${DISK_NAME} --size "200" --type "pd-standard" --zone ${ZONE}; then
+if gcloud compute disks create ${DISK_NAME} --size "${DISK_SIZE_GB}" --type "pd-standard" --zone ${ZONE}; then
     echo "Created blockchain disk."
 else
     echo "Unable to create blockchain disk. Assuming it has already been created."
