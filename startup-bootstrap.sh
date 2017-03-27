@@ -16,7 +16,7 @@ chmod +x "${AUTOBITCOIN_DIR}/maintain-system.sh"
 chmod +x "${AUTOBITCOIN_DIR}/maintain-bitcoin.sh"
 
 # maintain system as root
-echo "0 * * * * root \"${AUTOBITCOIN_DIR}/maintain-system.sh\"" > /etc/cron.d/maintain-system
+echo "0 * * * * root bash \"${AUTOBITCOIN_DIR}/maintain-system.sh\"" > /etc/cron.d/maintain-system
 
 
 # maintain bitcoin as non-root
@@ -25,4 +25,4 @@ REFRESH_MINUTES=15
 if ! id ${BTC_USER} > /dev/null 2>&1; then
     adduser --disabled-password --gecos "" ${BTC_USER}
 fi
-echo "*/${REFRESH_MINUTES} * * * * ${BTC_USER} \"${AUTOBITCOIN_DIR}/maintain-bitcoin.sh\"" > /etc/cron.d/maintain-bitcoin
+echo "*/${REFRESH_MINUTES} * * * * ${BTC_USER} bash \"${AUTOBITCOIN_DIR}/maintain-bitcoin.sh\"" > /etc/cron.d/maintain-bitcoin
