@@ -11,6 +11,9 @@ else
     git clone git://github.com/kobejohn/auto-bitcoin.git "${AUTOBITCOIN_DIR}"
 fi
 
+# make sure scripts are executable
+chmod +x "${AUTOBITCOIN_DIR}/maintain-system.sh"
+chmod +x "${AUTOBITCOIN_DIR}/maintain-bitcoin.sh"
 
 # maintain system as root
 echo "0 * * * * root \"${AUTOBITCOIN_DIR}/maintain-system.sh\"" > /etc/cron.d/maintain-system
