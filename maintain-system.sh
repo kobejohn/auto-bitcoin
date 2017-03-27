@@ -3,7 +3,7 @@ set -e
 
 
 ZONE="asia-northeast1-a"
-INSTANCE="bitcoin-worker"
+INSTANCE=$(gcloud compute instance-groups managed list-instances bitcoin-group --zone asia-northeast1-a | tail -n 1 | awk '{print $1;}')
 DISK_NAME="blockchain"
 DEVICE_DIR="/dev/disk/by-id/google-${DISK_NAME}"
 MOUNT_DIR="/mnt/disks/blockchain"
