@@ -16,6 +16,8 @@ else
 fi
 chmod +x ${AUTOBITCOIN_DIR}/maintain-system.sh
 chmod +x ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh
+chmod +x ${AUTOBITCOIN_DIR}/startup-bootstrap.sh
+chmod +x ${AUTOBITCOIN_DIR}/shutdown.sh
 
 # maintain system as root every hour
 echo "0 * * * * root ${AUTOBITCOIN_DIR}/maintain-system.sh" > /etc/cron.d/maintain-system
