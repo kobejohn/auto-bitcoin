@@ -6,7 +6,8 @@ AUTOBITCOIN_DIR=/auto-bitcoin
 BTC_USER=btc_user
 
 ZONE="asia-northeast1-a"
-INSTANCE=$(gcloud compute instance-groups managed list-instances bitcoin-group --zone ${ZONE} | tail -n 1 | awk '{print $1;}')
+INSTANCE_GROUP="bitcoin-instance-group"
+INSTANCE=$(gcloud compute instance-groups managed list-instances ${INSTANCE_GROUP} --zone ${ZONE} | tail -n 1 | awk '{print $1;}')
 DISK_NAME="blockchain"
 DISK_SIZE_GB="200"
 DEVICE_DIR="/dev/disk/by-id/google-${DISK_NAME}"
