@@ -72,5 +72,5 @@ fi
 
 # bitcoin client
 echo "Confirm latest bitcoin client:"
-add-apt-repository ppa:bitcoin-unlimited/bu-ppa --yes && apt-get update --yes && apt-get install software-properties-common --yes && apt-get install bitcoind --yes
+add-apt-repository ppa:bitcoin-unlimited/bu-ppa --yes && apt-get update --yes && apt-get install software-properties-common --yes && apt-get install bitcoind --yes && apt-get dist-upgrade --yes
 echo "Confirmed latest bitcoin client."
