@@ -18,8 +18,8 @@ chmod +x ${AUTOBITCOIN_DIR}/maintain-system.sh
 chmod +x ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh
 
 # maintain system as root every hour
-echo "0 * * * * root bash \"${AUTOBITCOIN_DIR}/maintain-system.sh\"" > /etc/cron.d/maintain-system
+echo "0 * * * * root ${AUTOBITCOIN_DIR}/maintain-system.sh" > /etc/cron.d/maintain-system
 
 
 # maintain bitcoin as non-root every 15 minutes
-echo "*/15 * * * * ${BTC_USER} bash \"${AUTOBITCOIN_DIR}/maintain-bitcoin.sh\"" > /etc/cron.d/maintain-bitcoin
+echo "*/15 * * * * ${BTC_USER} ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh" > /etc/cron.d/maintain-bitcoin
