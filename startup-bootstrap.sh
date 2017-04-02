@@ -14,7 +14,8 @@ if pushd "${AUTOBITCOIN_DIR}"; then
 else
     git clone ${AUTOBITCOIN_REPO} "${AUTOBITCOIN_DIR}"
 fi
-
+chmod +x ${AUTOBITCOIN_DIR}/maintain-system.sh
+chmod +x ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh
 
 # maintain system as root every hour
 echo "0 * * * * root bash \"${AUTOBITCOIN_DIR}/maintain-system.sh\"" > /etc/cron.d/maintain-system
