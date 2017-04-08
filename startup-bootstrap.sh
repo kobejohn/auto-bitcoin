@@ -7,7 +7,6 @@ AUTOBITCOIN_DIR="/auto-bitcoin"
 BTC_USER=btc_user
 
 
-
 # base repository
 if pushd "${AUTOBITCOIN_DIR}"; then
     git pull && popd
@@ -19,9 +18,12 @@ chmod +x ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh
 chmod +x ${AUTOBITCOIN_DIR}/startup-bootstrap.sh
 chmod +x ${AUTOBITCOIN_DIR}/shutdown.sh
 
-# maintain system as root every hour
-echo "0 * * * * root ${AUTOBITCOIN_DIR}/maintain-system.sh" > /etc/cron.d/maintain-system
+
+# maintain system as root every 30 minutes
+echo "0,30 * * * * root ${AUTOBITCOIN_DIR}/maintain-system.sh" > /etc/cron.d/maintain-system
+chmod +x /etc/cron.d/maintain-system
 
 
-# maintain bitcoin as non-root every 15 minutes
-echo "*/15 * * * * ${BTC_USER} ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh" > /etc/cron.d/maintain-bitcoin
+# maintain bitcoin as non-root every 30 minutes, "after" system maintenance
+echo "5, 35 * * * * ${BTC_USER} ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh" > /etc/cron.d/maintain-bitcoin
+chmod +x /etc/cron.d/maintain-bitcoin
