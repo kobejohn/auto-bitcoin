@@ -1,0 +1,5 @@
+SHELL=/bin/bash
+AUTOBITCOIN_DIR="/auto-bitcoin"
+BTC_USER=btc_user
+
+5,35 * * * * ${BTC_USER} ${AUTOBITCOIN_DIR}/maintain-bitcoin.sh >> /tmp/auto-bitcoin-maintain-bitcoin.log 2>&1

@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+AUTOBITCOIN_DIR="/auto-bitcoin"
+
+0,30 * * * * root ${AUTOBITCOIN_DIR}/maintain-system.sh >> /tmp/auto-bitcoin-maintain-system.log 2>&1
