@@ -20,7 +20,7 @@ pushd "${AUTOBITCOIN_DIR}" && git pull && popd
 
 echo "Confirm or create bitcoin user:"
 if ! id ${BTC_USER} > /dev/null 2>&1; then
-    adduser --disabled-password --gecos "" ${BTC_USER}
+    /usr/sbin/adduser --disabled-password --gecos "" ${BTC_USER}
 fi
 
 
@@ -45,7 +45,7 @@ fi
 
 echo "Confirm or format blockchain disk:"
 if ! (file -sL ${DEVICE_DIR} | grep ext4); then
-    mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard ${DEVICE_DIR}
+    /sbin/mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard ${DEVICE_DIR}
     echo "Formatted blockchain disk."
 else
     echo "Blockchain disk is already formatted."
