@@ -17,6 +17,5 @@ chmod +x ${AUTOBITCOIN_DIR}/*.sh
 
 
 # maintenance cron jobs
-cp ${AUTOBITCOIN_DIR}/cron.allow /etc/cron.d/
-cp ${AUTOBITCOIN_DIR}/cron-maintain* /etc/cron.d/
-chmod +x /etc/cron.d/cron-maintain*  # probably not necessary
+cp ${AUTOBITCOIN_DIR}/cron* /etc/cron.d/
+chmod 644 /etc/cron.d/cron-maintain*  # only root has write access. no group. no executable
