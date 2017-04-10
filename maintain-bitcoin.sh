@@ -6,7 +6,8 @@ PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 MOUNT_DIR="/mnt/disks/blockchain"
 
 
-echo "*****************************************\nRun bitcoind daemon"
+echo "*****************************************"
+echo "Run bitcoind daemon"
 bitcoind \
     -daemon \
     -datadir="${MOUNT_DIR}" \
