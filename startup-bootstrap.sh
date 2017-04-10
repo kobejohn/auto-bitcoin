@@ -17,5 +17,6 @@ chmod +x ${AUTOBITCOIN_DIR}/*.sh
 
 
 # maintenance cron jobs
+cp ${AUTOBITCOIN_DIR}/cron.allow /etc/cron.d/
 cp ${AUTOBITCOIN_DIR}/cron-maintain* /etc/cron.d/
 chmod +x /etc/cron.d/cron-maintain*  # probably not necessary
