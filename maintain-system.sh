@@ -17,8 +17,8 @@ MOUNT_DIR="/mnt/disks/blockchain"
 
 
 echo "*****************************************"
-echo "Update to latest auto-bitcoin:"
-pushd "${AUTOBITCOIN_DIR}" && git pull && popd
+echo "Re-provision auto-bitcoin:"
+${AUTOBITCOIN_DIR}/startup-bootstrap.sh
 
 
 echo "*****************************************"
