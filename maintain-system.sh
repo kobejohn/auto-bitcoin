@@ -4,7 +4,7 @@ set -e
 PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 AUTOBITCOIN_DIR=/auto-bitcoin
-BTC_USER=btc_user
+BTC_USER=btcuser
 
 PROJECT="bu-test-160812"
 ZONE="asia-northeast1-a"
