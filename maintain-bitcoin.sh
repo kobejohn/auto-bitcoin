@@ -11,7 +11,7 @@ echo "Run bitcoind daemon"
 bitcoind \
     -daemon \
     -datadir="${MOUNT_DIR}" \
-    -dbcache=1000 \
+    -dbcache=600 \
     -prune=180000 \
     -disablewallet
 
